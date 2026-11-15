@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>CareQ · Care, organised</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+  <!-- ============ SPLASH SCREEN ============ -->
+  <div id="splashScreen" class="screen active">
+    <div class="splash-content">
+      <img src="assets/CareQ.svg" alt="CareQ logo" class="splash-logo" onerror="this.src='assets/CareQ.png'">
+      <h1 class="splash-title">CareQ</h1>
+      <p class="splash-tagline">Care, organised.</p>
+      <div class="splash-loader"></div>
+    </div>
+  </div>
+
+  <!-- ============ WELCOME SCREEN ============ -->
+  <div id="welcomeScreen" class="screen">
+    <div class="welcome-container">
+      <div class="brand-header">
+        <img src="assets/CareQ.svg" alt="CareQ" class="welcome-logo" onerror="this.src='assets/CareQ.png'">
+        <span class="brand-name">CareQ</span>
+      </div>
+      <h2 class="welcome-heading">Your shift. Your tasks. Organised.</h2>
+      <p class="welcome-subtext">Stay organised, manage reminders and keep track of your nursing tasks with CareQ.</p>
+      <div class="illustration">
+        <svg viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg" class="nursing-illustration">
+          <rect x="20" y="30" width="240" height="120" rx="18" fill="#f0f7fb"/>
+          <rect x="40" y="45" width="90" height="90" rx="10" fill="#ffffff" stroke="#cbdde8" stroke-width="1.5"/>
+          <rect x="52" y="58" width="50" height="6" rx="3" fill="#1e6f9f"/>
+          <rect x="52" y="74" width="65" height="4" rx="2" fill="#b0cfdf"/>
+          <rect x="52" y="84" width="65" height="4" rx="2" fill="#b0cfdf"/>
+          <rect x="52" y="94" width="40" height="4" rx="2" fill="#b0cfdf"/>
+          <circle cx="110" cy="110" r="12" fill="#e1f0f9"/>
+          <path d="M106 110l3 3 6-6" stroke="#1e6f9f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="200" cy="80" r="16" fill="#d4e8f2"/>
+          <rect x="190" y="98" width="20" height="30" rx="8" fill="#d4e8f2"/>
+          <path d="M180 140h40" stroke="#cbdde8" stroke-width="2" stroke-linecap="round"/>
+          <rect x="170" y="60" width="40" height="28" rx="6" fill="#ffffff" stroke="#cbdde8" stroke-width="1.2"/>
+          <circle cx="185" cy="72" r="3" fill="#1e6f9f"/>
+          <rect x="192" y="70" width="12" height="3" rx="1.5" fill="#1e6f9f"/>
+          <rect x="192" y="77" width="8" height="3" rx="1.5" fill="#b0cfdf"/>
+          <circle cx="220" cy="130" r="12" fill="#ffffff" stroke="#b0cfdf" stroke-width="1.2"/>
+          <path d="M220 124v12M214 130h12" stroke="#1e6f9f" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="actions">
+        <button id="goToSignUpBtn" class="btn btn-primary">Sign Up</button>
+        <button id="goToLoginBtn" class="btn btn-secondary">Log In</button>
+        <button id="continueAsGuestBtn" class="btn btn-outline">Continue as Guest</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SIGN UP SCREEN ============ -->
+  <div id="signUpScreen" class="screen">
+    <div class="form-container wide">
+      <div class="form-header">
+        <button type="button" class="back-btn" id="backFromSignup" aria-label="Back"><i class="fas fa-arrow-left"></i></button>
+        <div>
+          <h2>Create account</h2>
+          <div class="step-indicator">
+            <span class="step-dot active" data-step="1"></span>
+            <span class="step-dot" data-step="2"></span>
+          </div>
+        </div>
+      </div>
+
+      <form id="signUpFormStep1" novalidate>
+        <div class="step-panel active" data-step="1">
+          <p class="step-label">Step 1 of 2 · Personal Information</p>
+          <div class="input-row">
+            <div class="input-group">
+              <label for="signupFirstName">First Name</label>
+              <input type="text" id="signupFirstName" placeholder="Alex" autocomplete="given-name">
+              <div class="error-message" id="signupFirstNameError"></div>
+            </div>
+            <div class="input-group">
+              <label for="signupLastName">Last Name</label>
+              <input type="text" id="signupLastName" placeholder="Morgan" autocomplete="family-name">
+              <div class="error-message" id="signupLastNameError"></div>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="signupEmail">Email Address</label>
+            <input type="email" id="signupEmail" placeholder="you@example.com" autocomplete="email">
+            <div class="error-message" id="signupEmailError"></div>
+          </div>
+          <div class="input-group">
+            <label for="signupPassword">Password</label>
+            <div class="password-wrapper">
+              <input type="password" id="signupPassword" placeholder="Create a password (min 6 chars)" autocomplete="new-password">
+              <button type="button" class="toggle-password" data-target="signupPassword"><i class="fas fa-eye"></i></button>
+            </div>
+            <div class="error-message" id="signupPasswordError"></div>
+          </div>
+          <div class="input-group">
+            <label for="signupConfirm">Confirm Password</label>
+            <div class="password-wrapper">
+              <input type="password" id="signupConfirm" placeholder="Confirm your password" autocomplete="new-password">
+              <button type="button" class="toggle-password" data-target="signupConfirm"><i class="fas fa-eye"></i></button>
+            </div>
+            <div class="error-message" id="signupConfirmError"></div>
+          </div>
+          <button type="button" id="toStep2Btn" class="btn btn-primary full-width">Continue</button>
+        </div>
+      </form>
+
+      <form id="signUpFormStep2" novalidate>
+        <div class="step-panel" data-step="2">
+          <p class="step-label">Step 2 of 2 · Professional Information</p>
+          <div class="input-group">
+            <label for="signupCategory">Health Professional Category</label>
+            <select id="signupCategory">
+              <option value="">Select category…</option>
+              <option value="registered_nurse">Registered Nurse</option>
+              <option value="registered_midwife">Registered Midwife</option>
+              <option value="nursing_student">Nursing Student</option>
+              <option value="intern">Intern</option>
+              <option value="other_nursing">Other Nursing Professional</option>
+            </select>
+            <div class="error-message" id="signupCategoryError"></div>
+          </div>
+          <div class="input-group">
+            <label for="signupCadre">Nursing Cadre / Professional Rank</label>
+            <select id="signupCadre" disabled>
+              <option value="">Select category first…</option>
+            </select>
+            <div class="error-message" id="signupCadreError"></div>
+          </div>
+          <div class="input-group">
+            <label for="signupFacility">Healthcare Facility</label>
+            <input type="text" id="signupFacility" placeholder="e.g. City General Hospital" autocomplete="organization">
+            <div class="error-message" id="signupFacilityError"></div>
+          </div>
+          <div class="input-group checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="termsCheckbox">
+              <span>I accept the <a href="#" onclick="return false;">Terms and Conditions</a> and <a href="#" onclick="return false;">Privacy Policy</a></span>
+            </label>
+            <div class="error-message" id="termsError"></div>
+          </div>
+          <div class="step-nav-row">
+            <button type="button" id="backToStep1Btn" class="btn btn-outline">Back</button>
+            <button type="submit" class="btn btn-primary">Create Account</button>
+          </div>
+          <p class="form-footer">Already have an account? <a href="#" id="goToLoginFromSignup">Log In</a></p>
+          <p class="simulation-note">Prototype: local simulation only. No real account or credential is created or verified.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ LOGIN SCREEN ============ -->
+  <div id="loginScreen" class="screen">
+    <div class="form-container">
+      <div class="form-header">
+        <button type="button" class="back-btn" id="backFromLogin" aria-label="Back"><i class="fas fa-arrow-left"></i></button>
+        <h2>Welcome back</h2>
+      </div>
+      <form id="loginForm" novalidate>
+        <div class="input-group">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email">
+          <div class="error-message" id="loginEmailError"></div>
+        </div>
+        <div class="input-group">
+          <label for="loginPassword">Password</label>
+          <div class="password-wrapper">
+            <input type="password" id="loginPassword" placeholder="Enter password" autocomplete="current-password">
+            <button type="button" class="toggle-password" data-target="loginPassword"><i class="fas fa-eye"></i></button>
+          </div>
+          <div class="error-message" id="loginPasswordError"></div>
+        </div>
+        <div class="input-group inline-group">
+          <label class="checkbox-label remember-me">
+            <input type="checkbox" id="rememberMe"> <span>Remember Me</span>
+          </label>
+          <a href="#" class="forgot-link" id="forgotPasswordLink">Forgot Password?</a>
+        </div>
+        <button type="submit" class="btn btn-primary full-width">Log In</button>
+        <p class="form-footer">Don't have an account? <a href="#" id="goToSignUpFromLogin">Sign Up</a></p>
+        <p class="simulation-note">Prototype: local simulation only, no real authentication.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ HOME / APP SHELL ============ -->
+  <div id="homeScreen" class="screen">
+    <div class="dashboard-container">
+
+      <!-- ===== TAB: HOME ===== -->
+      <div class="tab-section active" data-tab="home">
+        <div id="offShiftDashboard" class="dashboard-state active">
+          <header class="dash-header">
+            <div class="dash-header-left">
+              <img src="assets/CareQ.svg" alt="CareQ" class="dash-logo" onerror="this.src='assets/CareQ.png'">
+              <div>
+                <h1 id="offGreeting" class="dash-greeting">Hello, Guest</h1>
+                <p id="offDate" class="dash-date"></p>
+              </div>
+            </div>
+            <button class="avatar-btn" id="offAvatarBtn" aria-label="Profile">
+              <span id="offAvatarInitials">G</span>
+            </button>
+          </header>
+
+          <section class="takeover-card">
+            <div class="takeover-icon"><i class="fas fa-hand-holding-medical"></i></div>
+            <h2>Ready for your next shift?</h2>
+            <p>Begin a new shift and record your patient handover details.</p>
+            <button id="takeOverShiftBtn" class="btn btn-primary full-width">
+              <i class="fas fa-play"></i> Take Over Shift
+            </button>
+          </section>
+
+          <section class="dash-section">
+            <h3 class="section-title">Your Activity</h3>
+            <div id="activityStats" class="stats-grid"></div>
+            <div id="activityEmpty" class="empty-state" style="display:none;">
+              <i class="fas fa-chart-line"></i>
+              <p>Your shift activity will appear here once you complete your first shift.</p>
+            </div>
+          </section>
+
+          <section class="dash-section">
+            <h3 class="section-title">Recent Shifts</h3>
+            <div id="recentShiftsList" class="shifts-list"></div>
+            <div id="recentShiftsEmpty" class="empty-state" style="display:none;">
+              <i class="fas fa-clock-rotate-left"></i>
+              <p>No previous shifts yet. Take over your first shift to get started.</p>
+            </div>
+          </section>
+        </div>
+
+        <div id="activeShiftDashboard" class="dashboard-state">
+          <header class="dash-header active-header">
+            <div class="dash-header-left">
+              <img src="assets/CareQ.svg" alt="CareQ" class="dash-logo" onerror="this.src='assets/CareQ.png'">
+              <div>
+                <h1 id="activeGreeting" class="dash-greeting">On Shift</h1>
+                <p id="activeStartTime" class="dash-date"></p>
+              </div>
+            </div>
+            <button class="avatar-btn" id="activeAvatarBtn" aria-label="Profile">
+              <span id="activeAvatarInitials">G</span>
+            </button>
+          </header>
+
+          <div class="active-banner">
+            <span class="active-dot"></span>
+            <span class="active-label">Active Shift</span>
+            <span class="elapsed" id="elapsedTimer">00:00:00</span>
+          </div>
+
+          <section class="dash-section">
+            <h3 class="section-title">
+              <i class="fas fa-users"></i> Patients
+              <span class="count-badge" id="patientCount">0</span>
+            </h3>
+            <div id="activePatientsList" class="patients-list"></div>
+            <button type="button" id="addShiftPatientBtn" class="btn btn-secondary full-width add-patient-btn">
+              <i class="fas fa-plus"></i> Add Patient
+            </button>
+          </section>
+
+          <section id="dischargedPatientsSection" class="dash-section discharged-patients-section" hidden>
+            <h3 class="section-title"><i class="fas fa-user-minus"></i> Discharged this shift</h3>
+            <div id="dischargedPatientsList" class="discharged-patients-list"></div>
+          </section>
+
+          <section class="dash-section vitals-dashboard-entry">
+            <h3 class="section-title"><i class="fas fa-heart-pulse"></i> Vital Signs</h3>
+            <p class="section-sub">Start an observation round for patients on this shift.</p>
+            <button type="button" id="openVitalsRoundsBtn" class="btn btn-primary full-width">
+              <i class="fas fa-clipboard-list"></i> Observation Rounds
+            </button>
+          </section>
+
+          <section class="dash-section">
+            <h3 class="section-title">Shift Overview</h3>
+            <div id="shiftProgress" class="stats-grid"></div>
+            <div id="shiftProgressEmpty" class="empty-state" style="display:none;">
+              <i class="fas fa-list-check"></i>
+              <p>Task tracking is not yet available in this prototype. Your shift is active and patient records are saved.</p>
+            </div>
+          </section>
+
+          <button id="endShiftBtn" class="btn btn-outline full-width logout-btn end-shift-btn">
+            <i class="fas fa-stop"></i> End Shift
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== TAB: TASKS ===== -->
+      <div class="tab-section" data-tab="tasks">
+        <header class="section-header">
+          <div class="section-header-row">
+            <div>
+              <h1 class="section-heading">Tasks</h1>
+              <p class="section-sub">Manage your nursing activities across patients.</p>
+            </div>
+            <button id="createTaskBtn" class="btn btn-primary btn-sm" type="button">
+              <i class="fas fa-plus"></i> Create Task
+            </button>
+          </div>
+          <div id="tasksShiftBanner" class="active-banner tasks-shift-banner" style="display:none;">
+            <span class="active-dot"></span>
+            <span class="active-label">Active Shift</span>
+            <span class="elapsed" id="tasksShiftTimer">00:00:00</span>
+          </div>
+        </header>
+
+        <div class="task-summary" id="taskSummary">
+          <div class="summary-item">
+            <span class="summary-value" id="summaryTotal">0</span>
+            <span class="summary-label">Total</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-value summary-done" id="summaryCompleted">0</span>
+            <span class="summary-label">Completed</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-value summary-remaining" id="summaryRemaining">0</span>
+            <span class="summary-label">Remaining</span>
+          </div>
+        </div>
+
+        <div class="filter-row" id="taskFilters">
+          <button type="button" class="filter-pill active" data-filter="all">All</button>
+          <button type="button" class="filter-pill" data-filter="pending">Pending</button>
+          <button type="button" class="filter-pill" data-filter="completed">Completed</button>
+          <button type="button" class="filter-pill" data-filter="overdue">Overdue</button>
+        </div>
+
+        <div id="tasksList" class="tasks-list"></div>
+        <div id="tasksEmpty" class="empty-state large" style="display:none;">
+          <i class="fas fa-list-check"></i>
+          <p id="tasksEmptyText">No tasks yet. Take over a shift to start creating tasks.</p>
+        </div>
+      </div>
+
+      <!-- ===== TAB: SCHEDULE ===== -->
+      <div class="tab-section" data-tab="schedule">
+        <header class="section-header">
+          <h1 class="section-heading">Schedule</h1>
+          <p class="section-sub">Upcoming work and your task history.</p>
+        </header>
+        <div class="schedule-tabs" role="tablist" aria-label="Schedule view">
+          <button type="button" class="filter-pill active" data-schedule-view="upcoming" role="tab" aria-selected="true">Upcoming</button>
+          <button type="button" class="filter-pill" data-schedule-view="history" role="tab" aria-selected="false">History</button>
+        </div>
+        <section id="scheduleUpcomingSection" class="schedule-section" aria-label="Upcoming schedule">
+          <h2 class="schedule-section-title">Upcoming</h2>
+          <div id="scheduleUpcomingList" class="schedule-list"></div>
+          <div id="scheduleUpcomingEmpty" class="empty-state large" hidden><i class="fas fa-calendar-days"></i><p>No upcoming tasks or roster shifts.</p></div>
+        </section>
+        <section id="scheduleHistorySection" class="schedule-section" aria-label="Schedule history" hidden>
+          <h2 class="schedule-section-title">History</h2>
+          <div id="scheduleHistoryList" class="schedule-list"></div>
+          <div id="scheduleHistoryEmpty" class="empty-state large" hidden><i class="fas fa-clock-rotate-left"></i><p>Completed, overdue, missed and cancelled items will appear here.</p></div>
+        </section>
+      </div>
+
+      <!-- ===== TAB: ALERTS ===== -->
+      <div class="tab-section" data-tab="alerts">
+        <header class="section-header">
+          <h1 class="section-heading">Alerts</h1>
+          <p class="section-sub">Upcoming reminders and a history of triggered alerts.</p>
+        </header>
+        <div class="alerts-tabs" role="tablist" aria-label="Alert view">
+          <button type="button" class="filter-pill active" data-alert-view="upcoming" role="tab" aria-selected="true">Upcoming / Active</button>
+          <button type="button" class="filter-pill" data-alert-view="history" role="tab" aria-selected="false">History</button>
+        </div>
+        <section id="alertsUpcomingSection" class="alerts-section" aria-label="Upcoming and active alerts">
+          <h2 class="schedule-section-title">Upcoming / Active</h2>
+          <div id="alertsUpcomingList" class="alerts-list"></div>
+          <div id="alertsUpcomingEmpty" class="empty-state large" hidden><i class="fas fa-bell"></i><p>No active task reminders. Standard tasks alert 10 minutes before and at the scheduled time.</p></div>
+        </section>
+        <section id="alertsHistorySection" class="alerts-section" aria-label="Alert history" hidden>
+          <h2 class="schedule-section-title">History</h2>
+          <div id="alertsHistoryList" class="alerts-list"></div>
+          <div id="alertsHistoryEmpty" class="empty-state large" hidden><i class="fas fa-clock-rotate-left"></i><p>Triggered reminders and alerts will be kept here with their task and patient details.</p></div>
+        </section>
+      </div>
+
+      <!-- ===== TAB: PROFILE ===== -->
+      <div class="tab-section" data-tab="profile">
+        <section class="profile-hero">
+          <div class="profile-avatar-wrap">
+            <button class="profile-avatar" id="profileAvatarBtn" type="button" aria-label="Change profile picture">
+              <img id="profileAvatarImg" alt="" class="profile-avatar-img" hidden>
+              <span id="profileAvatarInitials" class="profile-avatar-initials">G</span>
+            </button>
+            <input type="file" id="profileImageInput" accept="image/*" hidden>
+          </div>
+          <h2 class="profile-name" id="profileHeaderName">Guest Account</h2>
+          <span class="profile-badge" id="profileHeaderCategory" hidden>INTERN</span>
+          <p class="profile-facility" id="profileHeaderFacility"></p>
+          <button class="profile-edit-link" id="profileEditLink" type="button" aria-expanded="false" aria-controls="personalForm professionalForm">
+            <i class="fas fa-pen"></i> Edit Profile
+          </button>
+        </section>
+
+        <section class="profile-card">
+          <h3 class="profile-card-title">Personal Details</h3>
+          <form id="personalForm" novalidate>
+            <div class="input-row">
+              <div class="input-group">
+                <label for="profileFirstName">First Name</label>
+                <input type="text" id="profileFirstName" placeholder="First name">
+                <div class="error-message" id="profileFirstNameError"></div>
+              </div>
+              <div class="input-group">
+                <label for="profileLastName">Last Name</label>
+                <input type="text" id="profileLastName" placeholder="Last name">
+                <div class="error-message" id="profileLastNameError"></div>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="profileEmail">Email Address</label>
+              <input type="email" id="profileEmail" placeholder="you@example.com">
+              <div class="error-message" id="profileEmailError"></div>
+            </div>
+            <button type="submit" class="btn btn-primary full-width profile-save-button" hidden>Save Personal Details</button>
+          </form>
+        </section>
+
+        <section class="profile-card">
+          <h3 class="profile-card-title">Professional Information</h3>
+          <form id="professionalForm" novalidate>
+            <div class="input-group">
+              <label for="profileCategory">Professional Category</label>
+              <select id="profileCategory">
+                <option value="">Select category…</option>
+                <option value="registered_nurse">Registered Nurse</option>
+                <option value="registered_midwife">Registered Midwife</option>
+                <option value="nursing_student">Nursing Student</option>
+                <option value="intern">Intern</option>
+                <option value="other_nursing">Other Nursing Professional</option>
+              </select>
+              <div class="error-message" id="profileCategoryError"></div>
+            </div>
+            <div class="input-group">
+              <label for="profileCadre">Nursing Cadre / Rank</label>
+              <select id="profileCadre" disabled>
+                <option value="">Select category first…</option>
+              </select>
+              <div class="error-message" id="profileCadreError"></div>
+            </div>
+            <div class="input-group">
+              <label for="profileFacility">Healthcare Facility</label>
+              <input type="text" id="profileFacility" placeholder="e.g. City General Hospital">
+              <div class="error-message" id="profileFacilityError"></div>
+            </div>
+            <button type="submit" class="btn btn-primary full-width profile-save-button" hidden>Save Operational Details</button>
+          </form>
+        </section>
+
+        <section class="profile-card">
+          <h3 class="profile-card-title">Preferences</h3>
+          <div class="settings-list">
+            <button class="settings-item" data-info="notifications" type="button">
+              <span class="settings-icon"><i class="fas fa-bell"></i></span>
+              <span class="settings-label">Notifications</span>
+              <i class="fas fa-chevron-right settings-chevron"></i>
+            </button>
+            <button class="settings-item" data-info="appearance" type="button">
+              <span class="settings-icon"><i class="fas fa-palette"></i></span>
+              <span class="settings-label">Appearance</span>
+              <i class="fas fa-chevron-right settings-chevron"></i>
+            </button>
+          </div>
+        </section>
+
+        <section class="profile-card work-roster-card">
+          <h3 class="profile-card-title">Settings · Work Roster</h3>
+          <p class="work-roster-intro">Plan work shifts and reminders separately from your active CareQ nursing shift.</p>
+          <div class="work-roster-toolbar">
+            <button type="button" id="addRosterShiftBtn" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add Work Shift</button>
+            <span id="calendarIntegrationNote" class="calendar-integration-note">Use the device share sheet when available or export an .ics event. Re-exports keep the same event ID.</span>
+          </div>
+          <form id="workRosterForm" class="work-roster-form" hidden novalidate>
+            <h4 id="rosterFormTitle">Add Work Shift</h4>
+            <div class="input-group">
+              <label for="rosterShiftType">Shift type</label>
+              <select id="rosterShiftType">
+                <option value="Morning">Morning</option>
+                <option value="Afternoon">Afternoon</option>
+                <option value="Night">Night</option>
+                <option value="Custom">Custom</option>
+              </select>
+            </div>
+            <div class="input-group" id="rosterCustomNameGroup" hidden>
+              <label for="rosterCustomName">Custom shift name</label>
+              <input type="text" id="rosterCustomName" maxlength="60" placeholder="Enter shift name">
+            </div>
+            <div class="input-row">
+              <div class="input-group">
+                <label for="rosterDate">Date</label>
+                <input type="date" id="rosterDate" required>
+              </div>
+              <div class="input-group">
+                <label for="rosterStartTime">Start time</label>
+                <input type="time" id="rosterStartTime" required>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="rosterEndTime">End time</label>
+              <input type="time" id="rosterEndTime" required>
+              <small class="roster-field-hint">If the end time is earlier than the start time, the shift ends the next day.</small>
+            </div>
+            <fieldset class="roster-reminders">
+              <legend>Shift reminders</legend>
+              <label><input type="checkbox" name="rosterReminder" value="60" checked> 1 hour before</label>
+              <label><input type="checkbox" name="rosterReminder" value="30"> 30 minutes before</label>
+              <label><input type="checkbox" name="rosterReminder" value="15"> 15 minutes before</label>
+            </fieldset>
+            <div class="input-group">
+              <label for="rosterNotes">Notes (optional)</label>
+              <textarea id="rosterNotes" rows="2" maxlength="300" placeholder="Optional shift notes"></textarea>
+            </div>
+            <p id="rosterFormError" class="roster-form-error" role="alert"></p>
+            <div class="work-roster-form-actions">
+              <button type="button" id="cancelRosterFormBtn" class="btn btn-outline btn-sm">Cancel</button>
+              <button type="submit" class="btn btn-primary btn-sm">Save Shift</button>
+            </div>
+          </form>
+          <div id="workRosterList" class="work-roster-list"></div>
+          <div id="workRosterEmpty" class="work-roster-empty">No roster shifts yet. Add a shift to plan your work calendar.</div>
+        </section>
+
+        <section class="profile-card">
+          <h3 class="profile-card-title">Support &amp; Account</h3>
+          <div class="settings-list">
+            <button class="settings-item" data-info="privacy" type="button">
+              <span class="settings-icon"><i class="fas fa-shield" aria-hidden="true"></i></span>
+              <span class="settings-label">Privacy &amp; Security</span>
+              <i class="fas fa-chevron-right settings-chevron"></i>
+            </button>
+            <button class="settings-item" data-info="help" type="button">
+              <span class="settings-icon"><i class="fas fa-circle-question"></i></span>
+              <span class="settings-label">Help &amp; Support</span>
+              <i class="fas fa-chevron-right settings-chevron"></i>
+            </button>
+            <button class="settings-item" data-info="about" type="button">
+              <span class="settings-icon"><i class="fas fa-circle-info"></i></span>
+              <span class="settings-label">About CareQ</span>
+              <i class="fas fa-chevron-right settings-chevron"></i>
+            </button>
+            <button class="settings-item settings-item-danger" id="logoutBtnProfile" type="button">
+              <span class="settings-icon"><i class="fas fa-right-from-bracket"></i></span>
+              <span class="settings-label">Log Out</span>
+              <i class="fas fa-chevron-right settings-chevron"></i>
+            </button>
+          </div>
+        </section>
+        <p class="profile-version">CareQ v.0.1</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FAB -->
+  <button id="addTaskFab" class="fab" aria-label="Add Task" title="Create Task">
+    <i class="fas fa-plus"></i>
+  </button>
+
+  <!-- ============ DEDICATED VITAL SIGNS WORKSPACE ============ -->
+  <div id="vitalsScreen" class="vitals-screen" aria-hidden="true">
+    <header class="vitals-header">
+      <button type="button" id="vitalsBackBtn" class="vitals-back-btn"><i class="fas fa-arrow-left"></i><span>Back</span></button>
+      <div>
+        <p class="vitals-eyebrow">CareQ · Active Shift</p>
+        <h1 id="vitalsScreenTitle">Vital Signs</h1>
+      </div>
+      <span class="vitals-header-mark"><i class="fas fa-heart-pulse"></i></span>
+    </header>
+    <main class="vitals-main">
+      <section id="vitalsRoundsView" class="vitals-view">
+        <div class="vitals-intro">
+          <div class="vitals-intro-icon"><i class="fas fa-clipboard-list"></i></div>
+          <div><h2>Observation rounds</h2><p>Each round starts with a fresh record for every patient currently on shift.</p></div>
+        </div>
+        <fieldset class="vitals-round-selection">
+          <legend>Select one or more patients</legend>
+          <div id="vitalsRoundPatientSelection" class="vitals-round-patient-selection"></div>
+        </fieldset>
+        <button type="button" id="startVitalsRoundBtn" class="btn btn-primary full-width vitals-start-round">
+          <i class="fas fa-plus"></i> Start Observation Round
+        </button>
+        <div class="vitals-section-heading"><h2>Rounds this shift</h2><span id="vitalsRoundCount" class="count-badge">0</span></div>
+        <div id="vitalsRoundsList" class="vitals-rounds-list"></div>
+        <div id="vitalsRoundsEmpty" class="empty-state large">
+          <i class="fas fa-heart-pulse"></i><p>No observation rounds yet. Start a round to record Vital Signs for this shift.</p>
+        </div>
+        <details class="clinical-rules-panel">
+          <summary><i class="fas fa-sliders"></i> Clinical alert rules</summary>
+          <p>CareQ does not set universal clinical thresholds. Configure reference ranges and trend-change limits only from your facility's approved protocol. Unconfigured rules do not generate alerts.</p>
+          <label class="clinical-rules-confirm"><input type="checkbox" id="clinicalRulesApproved"> I confirm these rules are from an approved clinical protocol.</label>
+          <label class="clinical-temperature-unit">Temperature rule unit <select id="clinicalTemperatureUnit"><option value="°C">°C</option><option value="°F">°F</option></select></label>
+          <div id="clinicalRulesGrid" class="clinical-rules-grid"></div>
+          <div class="clinical-rules-actions">
+            <button type="button" id="saveClinicalRulesBtn" class="btn btn-primary">Save Alert Rules</button>
+            <span id="clinicalRulesStatus" role="status"></span>
+          </div>
+        </details>
+      </section>
+
+      <section id="vitalsRecordView" class="vitals-view" hidden>
+        <button type="button" id="backToVitalsRoundsBtn" class="vitals-inline-back"><i class="fas fa-arrow-left"></i> Back to round</button>
+        <div class="vitals-patient-banner">
+          <div class="vitals-patient-icon"><i class="fas fa-user"></i></div>
+          <div><p class="vitals-eyebrow">Recording observations for</p><h2 id="vitalsPatientName"></h2><p id="vitalsPatientDetails"></p></div>
+          <span id="vitalsRecordStatus" class="vitals-status-pill">Not Started</span>
+        </div>
+        <p id="vitalsValidationMessage" class="vitals-validation-message" role="alert"></p>
+        <div id="vitalsClinicalAlerts" class="vitals-clinical-alerts" aria-live="polite"></div>
+        <div id="vitalsRoundProgress" class="vitals-round-progress" aria-live="polite" hidden>
+          <span id="vitalsRoundProgressLabel"></span>
+          <span>Observation round</span>
+        </div>
+        <form id="vitalsRecordForm" class="vitals-record-form" novalidate>
+          <section class="vitals-fields-section">
+            <div class="vitals-fields-heading"><h2 id="vitalsRequiredHeading">Required observations</h2><span id="vitalsRequiredDescription">All fields required to complete</span></div>
+            <div class="vitals-fields-grid">
+              <label class="vital-field" data-vital-field="temperature"><span>Temperature <b>Required</b></span><div class="vital-input-with-unit"><input id="vitalTemperature" type="number" step="0.1" inputmode="decimal" placeholder="Enter value"><select id="vitalTemperatureUnit" aria-label="Temperature unit"><option value="°C">°C</option><option value="°F">°F</option></select></div></label>
+              <div class="vital-field" data-vital-field="blood_pressure"><span>Blood Pressure <b>Required</b></span><div class="vital-bp-inputs"><label><input id="vitalBPSystolic" type="number" step="1" inputmode="numeric" placeholder="Systolic" aria-label="Systolic blood pressure"><span>SYS</span></label><i>/</i><label><input id="vitalBPDiastolic" type="number" step="1" inputmode="numeric" placeholder="Diastolic" aria-label="Diastolic blood pressure"><span>DIA</span></label><em>mmHg</em></div></div>
+              <div class="vital-field" data-vital-field="pulse"><span>Pulse <b>Required</b></span><div class="vital-input-with-unit"><input id="vitalPulse" type="number" step="1" inputmode="numeric" placeholder="Enter rate"><span class="vital-unit">bpm</span></div><button type="button" class="vitals-stopwatch-btn" data-stopwatch="pulse"><i class="fas fa-stopwatch"></i> Use stopwatch</button><small id="pulseMethod" class="vital-method"></small></div>
+              <div class="vital-field" data-vital-field="respiration"><span>Respiration <b>Required</b></span><div class="vital-input-with-unit"><input id="vitalRespiration" type="number" step="1" inputmode="numeric" placeholder="Enter rate"><span class="vital-unit">/min</span></div><button type="button" class="vitals-stopwatch-btn" data-stopwatch="respiration"><i class="fas fa-stopwatch"></i> Use stopwatch</button><small id="respirationMethod" class="vital-method"></small></div>
+            </div>
+          </section>
+          <section class="vitals-fields-section optional-observations">
+            <div class="vitals-fields-heading"><h2>Optional observations</h2><span>Leave blank if not recorded</span></div>
+            <div class="vitals-fields-grid">
+              <label class="vital-field" data-vital-field="spo2"><span>SpO₂</span><div class="vital-input-with-unit"><input id="vitalSpo2" type="number" step="1" inputmode="numeric" placeholder="—"><span class="vital-unit">%</span></div></label>
+              <label class="vital-field" data-vital-field="pain"><span>Pain Score</span><input id="vitalPain" type="number" step="1" inputmode="numeric" placeholder="—"></label>
+              <label class="vital-field vital-field-wide" data-vital-field="other"><span>Other observations</span><textarea id="vitalOther" rows="2" maxlength="400" placeholder="Additional observations, if applicable"></textarea></label>
+            </div>
+          </section>
+          <div class="vitals-record-actions">
+            <p id="vitalsSavedAt" class="vitals-saved-at">Changes save as you go.</p>
+            <div><button type="button" id="saveVitalsProgressBtn" class="btn btn-outline">Save Progress</button><button type="button" id="completeVitalsRecordBtn" class="btn btn-primary"><i class="fas fa-check"></i> Complete Record</button><button type="button" id="vitalsRoundNextBtn" class="btn btn-secondary vitals-next-patient-btn" hidden></button></div>
+          </div>
+        </form>
+        <section class="vitals-history-section">
+          <div class="vitals-fields-heading"><h2>Patient observation history</h2><span>Previous readings &amp; trends</span></div>
+          <div id="vitalsPatientHistory" class="vitals-history-list"></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div id="cancelVitalsRoundModal" class="modal-overlay">
+    <div class="modal small">
+      <div class="modal-header"><h2>Cancel observation round?</h2><button type="button" id="closeCancelVitalsRoundBtn" class="modal-close" aria-label="Close"><i class="fas fa-xmark"></i></button></div>
+      <div class="modal-body"><p class="confirm-text">The round will be marked Cancelled. Any observations already saved will be preserved.</p></div>
+      <div class="modal-footer"><button type="button" id="keepVitalsRoundBtn" class="btn btn-outline">Keep Round</button><button type="button" id="confirmCancelVitalsRoundBtn" class="btn btn-danger">Cancel Round</button></div>
+    </div>
+  </div>
+
+  <!-- ============ VITALS STOPWATCH MODAL ============ -->
+  <div id="vitalsStopwatchModal" class="modal-overlay">
+    <div class="modal small vitals-stopwatch-modal">
+      <div class="modal-header"><div><h2 id="stopwatchTitle">Pulse stopwatch</h2><p>Count each beat during the timed interval.</p></div><button type="button" id="closeVitalsStopwatchBtn" class="modal-close" aria-label="Close"><i class="fas fa-xmark"></i></button></div>
+      <div class="modal-body">
+        <fieldset class="stopwatch-duration-options"><legend>Measurement duration</legend>
+          <label><input type="radio" name="stopwatchDuration" value="15" checked><span>15 sec <small>× 4</small></span></label>
+          <label><input type="radio" name="stopwatchDuration" value="30"><span>30 sec <small>× 2</small></span></label>
+          <label><input type="radio" name="stopwatchDuration" value="60"><span>60 sec <small>× 1</small></span></label>
+        </fieldset>
+        <div id="stopwatchCountdown" class="stopwatch-countdown" aria-live="assertive" hidden></div>
+        <div id="stopwatchClock" class="stopwatch-clock">00:15</div>
+        <div id="stopwatchResultPanel" class="stopwatch-result-panel" hidden>
+          <label for="stopwatchCountInput">Observed count</label><input id="stopwatchCountInput" type="number" min="0" step="1" inputmode="numeric" placeholder="Enter count">
+          <p id="stopwatchCalculatedResult"></p>
+        </div>
+      </div>
+      <div class="modal-footer"><button type="button" id="stopwatchStartBtn" class="btn btn-primary"><i class="fas fa-play"></i> Start</button><button type="button" id="stopwatchApplyBtn" class="btn btn-primary" hidden>Use Result</button></div>
+    </div>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <div class="bottom-nav-inner">
+      <button type="button" class="nav-item active" data-nav="home" aria-current="page"><i class="fas fa-house" aria-hidden="true"></i><span>Home</span></button>
+      <button type="button" class="nav-item" data-nav="tasks"><i class="fas fa-list-check" aria-hidden="true"></i><span>Tasks</span></button>
+      <button type="button" class="nav-item" data-nav="schedule"><i class="fas fa-calendar-days" aria-hidden="true"></i><span>Schedule</span></button>
+      <button type="button" class="nav-item" data-nav="alerts"><i class="fas fa-bell" aria-hidden="true"></i><span>Alerts</span></button>
+      <button type="button" class="nav-item" data-nav="profile"><i class="fas fa-user" aria-hidden="true"></i><span>Profile</span></button>
+    </div>
+  </nav>
+
+  <!-- ============ SHIFT TAKEOVER MODAL ============ -->
+  <div id="takeoverModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h2>Welcome to your shift!</h2>
+          <p>Let's get you set up before you begin.</p>
+        </div>
+        <button class="modal-close" id="closeTakeoverBtn" aria-label="Close"><i class="fas fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div id="patientsContainer" class="patients-container"></div>
+        <button type="button" id="addPatientBtn" class="btn btn-secondary full-width add-patient-btn">
+          <i class="fas fa-plus"></i> Add Another Patient
+        </button>
+        <div id="takeoverError" class="error-message"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="cancelTakeoverBtn" class="btn btn-outline">Cancel</button>
+        <button id="beginShiftBtn" class="btn btn-primary"><i class="fas fa-play"></i> Begin Shift</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ADMIT PATIENT MODAL ============ -->
+  <div id="admitPatientModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h2>Admit Patient</h2>
+          <p>Add a patient to the current shift.</p>
+        </div>
+        <button type="button" class="modal-close" id="closeAdmitPatientBtn" aria-label="Close"><i class="fas fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div id="admitPatientContainer" class="patients-container"></div>
+        <div id="admitPatientError" class="error-message"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancelAdmitPatientBtn" class="btn btn-outline">Cancel</button>
+        <button type="button" id="saveAdmitPatientBtn" class="btn btn-primary">Add Patient</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="patientActionModal" class="modal-overlay">
+    <div class="modal small" role="dialog" aria-modal="true" aria-labelledby="patientActionTitle">
+      <div class="modal-header">
+        <div>
+          <h2 id="patientActionTitle">Patient action</h2>
+          <p id="patientActionSubtitle"></p>
+        </div>
+        <button type="button" class="modal-close" id="closePatientActionBtn" aria-label="Close"><i class="fas fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p id="patientActionMessage" class="confirm-text"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancelPatientActionBtn" class="btn btn-outline">Keep Patient</button>
+        <button type="button" id="confirmPatientActionBtn" class="btn btn-danger">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ END SHIFT MODAL ============ -->
+  <div id="endShiftModal" class="modal-overlay">
+    <div class="modal small">
+      <div class="modal-header"><h2>End this shift?</h2></div>
+      <div class="modal-body">
+        <p class="confirm-text">This will close the current shift and save patient records and tasks to history. Unfinished tasks will not carry over.</p>
+      </div>
+      <div class="modal-footer">
+        <button id="cancelEndShiftBtn" class="btn btn-outline">Cancel</button>
+        <button id="confirmEndShiftBtn" class="btn btn-danger">End Shift</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ INFO MODAL ============ -->
+  <div id="infoModal" class="modal-overlay">
+    <div class="modal small">
+      <div class="modal-header">
+        <h2 id="infoModalTitle">Info</h2>
+        <button class="modal-close" id="closeInfoBtn" aria-label="Close"><i class="fas fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p class="confirm-text" id="infoModalBody"></p>
+        <div id="privacyInfoPanel" class="privacy-info-panel" hidden>
+          <div class="privacy-storage-card">
+            <span class="privacy-storage-icon"><i class="fas fa-database" aria-hidden="true"></i></span>
+            <div>
+              <strong>Stored in this browser</strong>
+              <p>Profile, shift, patient, task, Vital Signs and work roster data are saved in this browser's local storage.</p>
+            </div>
+          </div>
+          <div class="privacy-info-item">
+            <i class="fas fa-cloud" aria-hidden="true"></i>
+            <div><strong>No CareQ server sync</strong><p>This prototype does not send or back up your data to a CareQ server.</p></div>
+          </div>
+          <div class="privacy-info-warning">
+            <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+            <p>CareQ does not provide encrypted storage or remote access controls. Anyone with access to this browser profile may be able to view its saved data. Use a trusted device and do not enter identifiable patient information.</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="okInfoBtn" class="btn btn-primary">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CREATE TASK MODAL ============ -->
+  <div id="createTaskModal" class="modal-overlay">
+    <div class="modal create-task-modal">
+      <div class="modal-header">
+        <div>
+          <h2 id="createTaskTitle">Create Task</h2>
+          <p id="createTaskStepLabel">Step 1 of 3 · Select category</p>
+        </div>
+        <button class="modal-close" id="closeCreateTaskBtn" aria-label="Close"><i class="fas fa-xmark"></i></button>
+      </div>
+
+      <div class="step-indicator create-step-indicator">
+        <span class="step-dot active" data-cstep="1"></span>
+        <span class="step-dot" data-cstep="2"></span>
+        <span class="step-dot" data-cstep="3"></span>
+      </div>
+
+      <div class="modal-body">
+        <!-- Step 1: Category -->
+        <div class="cstep-panel active" data-cstep="1">
+          <div id="categoryGrid" class="category-grid"></div>
+        </div>
+
+        <!-- Step 2: Activity -->
+        <div class="cstep-panel" data-cstep="2">
+          <div class="cstep-back-row">
+            <button type="button" class="link-btn" id="backToCatBtn"><i class="fas fa-arrow-left"></i> Back to categories</button>
+            <span class="cstep-chip" id="chosenCategoryChip"></span>
+          </div>
+          <div id="activityList" class="activity-list"></div>
+          <button type="button" class="custom-task-btn" id="customTaskBtn">
+            <i class="fas fa-pen"></i> Create Custom Task
+          </button>
+        </div>
+
+        <!-- Step 3: Details -->
+        <div class="cstep-panel" data-cstep="3">
+          <div class="cstep-back-row">
+            <button type="button" class="link-btn" id="backToActBtn"><i class="fas fa-arrow-left"></i> Back to activities</button>
+          </div>
+          <div class="input-group">
+            <label for="taskActivityName">Activity Name</label>
+            <input type="text" id="taskActivityName" placeholder="e.g. Self Medication" maxlength="80">
+            <div class="error-message" id="taskActivityNameError"></div>
+          </div>
+          <p id="taskVitalsMetricInfo" class="task-vitals-metric-info" hidden></p>
+          <div class="input-group">
+            <label for="taskPatient">Patient</label>
+            <select id="taskPatient"></select>
+            <div class="error-message" id="taskPatientError"></div>
+          </div>
+          <div class="input-row">
+            <div class="input-group">
+              <label for="taskDate">Scheduled Date</label>
+              <input type="date" id="taskDate">
+              <div class="error-message" id="taskDateError"></div>
+            </div>
+            <div class="input-group">
+              <label for="taskTime">Scheduled Time</label>
+              <input type="time" id="taskTime">
+              <div class="error-message" id="taskTimeError"></div>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="taskPriority">Priority</label>
+            <select id="taskPriority">
+              <option value="normal">Normal</option>
+              <option value="low">Low</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="taskDescription">Description (optional)</label>
+            <textarea id="taskDescription" maxlength="300" placeholder="Additional instructions or context…"></textarea>
+          </div>
+          <div class="reminder-note">
+            <i class="fas fa-bell"></i>
+            <span>Reminders are automatic: <strong>10 minutes before</strong> and <strong>at the scheduled time</strong>.</span>
+          </div>
+          <div id="taskSaveError" class="error-message"></div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="cancelCreateTaskBtn" class="btn btn-outline">Cancel</button>
+        <button type="button" id="saveTaskBtn" class="btn btn-primary" disabled>Save Task</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ EXACT-TIME TASK ALERT MODAL ============ -->
+  <div id="taskAlertModal" class="modal-overlay task-alert-overlay">
+    <div class="modal small task-alert-modal">
+      <div class="task-alert-header">
+        <div class="task-alert-pulse"><i class="fas fa-bell"></i></div>
+        <h2>It's time!</h2>
+        <p class="task-alert-sub">CARE Q TASK ALERT</p>
+      </div>
+      <div class="modal-body">
+        <div class="task-alert-activity" id="alertActivityName">Task</div>
+        <div class="task-alert-row"><span class="task-alert-label">Patient</span><span class="task-alert-value" id="alertPatientName">—</span></div>
+        <div class="task-alert-row"><span class="task-alert-label">Scheduled</span><span class="task-alert-value" id="alertScheduledTime">—</span></div>
+        <div class="task-alert-row"><span class="task-alert-label">Category</span><span class="task-alert-value" id="alertCategory">—</span></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="alertDismissBtn" class="btn btn-outline">Dismiss</button>
+        <button type="button" id="alertViewBtn" class="btn btn-primary">View Task</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
